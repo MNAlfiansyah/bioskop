@@ -9,19 +9,19 @@ class kasir1 extends CI_Controller {
 		if ($this->session->userdata('id_level') !== '3') {
 			redirect('login');
 		}
-		$this->load->model('kasir');
+		$this->load->model('bioskop');
 	}
 
 	public function index()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['user']=$this->kasir->user()->num_rows();
-			$data['masakan']=$this->kasir->masakan()->num_rows();
-			$data['transaksi']=$this->kasir->pesanan()->num_rows();
+			$data['user']=$this->bioskop->user()->num_rows();
+			$data['masakan']=$this->bioskop->masakan()->num_rows();
+			$data['transaksi']=$this->bioskop->pesanan()->num_rows();
 
 			$this->load->view('heater/header');
-			$this->load->view('kasir/dashboard',$data);
+			$this->load->view('bioskop/dashboard',$data);
 			$this->load->view('heater/footer');
 		}else{
 
@@ -40,7 +40,7 @@ class kasir1 extends CI_Controller {
 
 	public function alldata(){	
 		$id_order = $this->input->post('kode');
-		$data = $this->kasir->detail($id_order)->result();
+		$data = $this->bioskop->detail($id_order)->result();
 		echo json_encode($data);
 	}
 
@@ -63,14 +63,14 @@ class kasir1 extends CI_Controller {
     if($this->input->post('submit')){ // Jika user menekan tombol Submit (Simpan) pada form
     	//print_r($i['nama_masakan']);
 
-      // lakukan upload file dengan memanggil function upload yang ada di kasir.php
-    	$this->kasir->cetakk($id_order, $total_bayar,$no_meja);
+      // lakukan upload file dengan memanggil function upload yang ada di bioskop.php
+    	$this->bioskop->cetakk($id_order, $total_bayar,$no_meja);
 
-    	$trans = $this->kasir->trans($no_meja, $id_order, $tanggal, $total_bayar);
+    	$trans = $this->bioskop->trans($no_meja, $id_order, $tanggal, $total_bayar);
     	if($trans == $id_order){
-     //     // Panggil function save yang ada di kasir.php untuk menyimpan data ke database
-    		$this->kasir->edit_a($id_order);
-    		$this->kasir->edit_a1($id_order);
+     //     // Panggil function save yang ada di bioskop.php untuk menyimpan data ke database
+    		$this->bioskop->edit_a($id_order);
+    		$this->bioskop->edit_a1($id_order);
 
 
         redirect('kasir1/pesanan'); // Redirect kembali ke halaman awal / halaman view data
@@ -86,11 +86,11 @@ class kasir1 extends CI_Controller {
 
 public function pesanan()
 {
-	if($this->kasir->logged_id())	
+	if($this->bioskop->logged_id())	
 	{
-		$data['pes'] = $this->kasir->pesanan();
+		$data['pes'] = $this->bioskop->pesanan();
 		$this->load->view('heater/header');
-		$this->load->view('kasir/pesanan',$data);
+		$this->load->view('bioskop/pesanan',$data);
 		$this->load->view('heater/footer');
 	}else{
 
@@ -103,9 +103,9 @@ public function pesanan()
 public function view_data()
 {
 	if (isset($_POST['cari'])) {
-		$data['pesan']	 = $this->kasir->view_data($this->input->post('id_order'));
+		$data['pesan']	 = $this->bioskop->view_data($this->input->post('id_order'));
 		$this->load->view('heater/header');
-		$this->load->view('kasir/data', $data);
+		$this->load->view('bioskop/data', $data);
 		$this->load->view('heater/footer');
 	}else {
 		echo "Ada Kesalahan saat mengambil data !!!";

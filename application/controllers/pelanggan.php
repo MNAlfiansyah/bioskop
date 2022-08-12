@@ -11,13 +11,13 @@ class pelanggan extends CI_Controller {
 		}
 		$this->load->library('cart');
 		$this->load->model('keranjang_model');
-		$this->load->model('kasir');
+		$this->load->model('bioskop');
 
 	}
 
 	public function index()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
 		$kategori=($this->uri->segment(3))?$this->uri->segment(3):0;
 		$data['produk'] = $this->keranjang_model->get_produk_kategori($kategori);

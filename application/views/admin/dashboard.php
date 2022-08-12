@@ -4,8 +4,8 @@
 			<ul class="nav">
 				<li><a href="<?= base_url('index.php/admin');?>" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 				<li><a href="<?= base_url('index.php/admin/manage');?>" class=""><i class="lnr lnr-code"></i> <span>Management User</span></a></li>
-				<li><a href="<?= base_url('index.php/admin/masakan');?>" class=""><i class="lnr lnr-chart-bars"></i> <span>Masakan</span></a></li>
-				<li><a href="<?= base_url('index.php/admin/pesanan')?>" class=""><i class="lnr lnr-cog"></i> <span>Pesanan</span></a></li>
+				<li><a href="<?= base_url('index.php/admin/buku');?>" class=""><i class="lnr lnr-chart-bars"></i> <span>Film</span></a></li>
+				<li><a href="<?= base_url('index.php/admin/pesanan')?>" class=""><i class="lnr lnr-cog"></i> <span>Studio</span></a></li>
 			</ul>
 		</nav>
 	</div>
@@ -43,7 +43,7 @@
 									<span class="icon"><i class="fa fa-eye"></i></span>
 									<p>
 										<span class="number"><?= $transaksi ?></span>
-										<span class="title">Total Pesanan</span>
+										<span class="title">Total Peminjam</span>
 									</p>
 								</div>
 							</div>
@@ -56,7 +56,7 @@
 	<div class="clearfix">
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; 2019. MNAC Copyright.</p>
+				<p class="copyright">&copy; 10120918 - Dennie Fuzi Alfiyanies </p>
 			</div>
 		</footer>
 	</div>

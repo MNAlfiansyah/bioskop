@@ -26,7 +26,7 @@ body {
   color: #676a6d; }
 
 a {
-  color: #3287B2; }
+  color: white; }
   a:hover, a:focus {
     color: #3b98c8;
     text-decoration: none; }
@@ -67,7 +67,7 @@ footer {
   width: 260px;
   height: 100%;
   float: left;
-  background-color: #36454f ;
+  background-color: #0d2d3e ;
   position: fixed;
   left: 0; }
 
@@ -166,7 +166,7 @@ html.fullscreen-bg #wrapper {
   padding: 0;
   margin: 0;
   border: none;
-  background-color: #fff; }
+  background-color: #31708f; }
   .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: #fafafa; }
   .navbar-default .navbar-toggle, .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
@@ -174,7 +174,7 @@ html.fullscreen-bg #wrapper {
   .navbar-default .brand {
     float: left;
     padding: 30px 39px;
-    background-color: #fff; }
+    background-color: #31708f; }
   @media screen and (max-width: 1024px) {
     .navbar-default .brand {
       padding-left: 30px;

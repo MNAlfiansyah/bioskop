@@ -8,13 +8,13 @@ class login extends CI_Controller {
 		parent::__construct();
         //load library form validasi
 		$this->load->library('form_validation');
-        //load model kasir
-		$this->load->model('kasir');
+        //load model bioskop
+		$this->load->model('bioskop');
 	}
 
 	public function index()
 	{
-		if($this->kasir->logged_id())
+		if($this->bioskop->logged_id())
 		{
     //jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
 			if ($this->session->userdata("id_level") == '1'){
@@ -48,7 +48,7 @@ class login extends CI_Controller {
 				$password = $this->input->post('password', TRUE);
 
              //checking data via model
-				$checking = $this->kasir->check_login('user', array('username' => $username), array('password' => $password));
+				$checking = $this->bioskop->check_login('user', array('username' => $username), array('password' => $password));
 
              //jika ditemukan, maka create session
 				if ($checking != FALSE) {

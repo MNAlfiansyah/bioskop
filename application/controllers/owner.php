@@ -9,18 +9,19 @@ class owner extends CI_Controller {
 		if ($this->session->userdata('id_level') !== '4') {
 			redirect('login');
 		}
-		$this->load->model('kasir');
+		$this->load->model('bioskop');
 	}
 
 	public function index()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['user']=$this->kasir->user()->num_rows();
-			$data['masakan']=$this->kasir->masakan()->num_rows();
-			$data['transaksi']=$this->kasir->transaksi()->num_rows();
+			$data['user']=$this->bioskop->user()->num_rows();
+			$data['masakan']=$this->bioskop->masakan()->num_rows();
+			$data['transaksi']=$this->bioskop->orderan()->num_rows();
+			$data['cek']=$this->bioskop->user();
 			$this->load->view('heater/header');
-			$this->load->view('owner/dashboard',$data);
+			$this->load->view('owner/manage',$data);
 			$this->load->view('heater/footer');
 		}else{
 
@@ -38,9 +39,9 @@ class owner extends CI_Controller {
 
 	public function manage()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['cek']=$this->kasir->user();
+			$data['cek']=$this->bioskop->user();
 			$this->load->view('heater/header');
 			$this->load->view('owner/manage',$data);
 			$this->load->view('heater/footer');
@@ -52,13 +53,13 @@ class owner extends CI_Controller {
 		}
 	}
 
-	public function masakan()
+	public function buku()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['mas']=$this->kasir->masakan();
+			$data['mas']=$this->bioskop->masakan();
 			$this->load->view('heater/header');
-			$this->load->view('owner/masakan',$data);
+			$this->load->view('owner/buku',$data);
 			$this->load->view('heater/footer');
 		}else{
 
@@ -70,9 +71,9 @@ class owner extends CI_Controller {
 
 	public function pesanan()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['pes'] = $this->kasir->pesanan_admin();
+			$data['mas'] = $this->bioskop->order();
 			$this->load->view('heater/header');
 			$this->load->view('owner/pesanan',$data);
 			$this->load->view('heater/footer');
@@ -87,9 +88,9 @@ class owner extends CI_Controller {
 
 	public function laporan()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['lap'] = $this->kasir->laporan();
+			$data['lap'] = $this->bioskop->laporan();
 			$this->load->view('heater/header');
 			$this->load->view('owner/laporan',$data);
 			$this->load->view('heater/footer');
@@ -104,7 +105,7 @@ class owner extends CI_Controller {
 	public function view_data()
 	{
 		if (isset($_POST['cari'])) {
-			$data['pesan']	 = $this->kasir->view_data($this->input->post('id_order'));
+			$data['pesan']	 = $this->bioskop->view_data($this->input->post('id_order'));
 			$this->load->view('heater/header');
 			$this->load->view('owner/data', $data);
 			$this->load->view('heater/footer');
@@ -116,7 +117,7 @@ class owner extends CI_Controller {
 	public function view_lapor()
 	{
 		if (isset($_POST['cari'])) {
-			$data['lapor']	 = $this->kasir->view_lapor($this->input->post('tanggal'),$this->input->post('tanggal1'));
+			$data['lapor']	 = $this->bioskop->view_lapor($this->input->post('tanggal'),$this->input->post('tanggal1'));
 			$this->load->view('heater/header');
 			$this->load->view('owner/data1', $data);
 			$this->load->view('heater/footer');
@@ -134,7 +135,7 @@ class owner extends CI_Controller {
 	// 	$total_bayar =$this->input->post('total_bayar');
 	// 	$tanggal1 = $this->input->post('tanggal1');
 	// 	if (isset($_POST['submit'])) {
-	// 		$this->kasir->laporanpenjualan($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar, $tanggal1);
+	// 		$this->bioskop->laporanpenjualan($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar, $tanggal1);
 	// 		$this->load->view('heater/header');
 	// 		$this->load->view('owner/data1');
 	// 		$this->load->view('heater/footer');
@@ -158,15 +159,15 @@ class owner extends CI_Controller {
     if($this->input->post('submit')){ // Jika user menekan tombol Submit (Simpan) pada form
     	//print_r($i['nama_masakan']);
 
-      // lakukan upload file dengan memanggil function upload yang ada di kasir.php
-    	$this->kasir->cetakk($id_order, $total_bayar,$no_meja);
+      // lakukan upload file dengan memanggil function upload yang ada di bioskop.php
+    	$this->bioskop->cetakk($id_order, $total_bayar,$no_meja);
 
-    	$trans = $this->kasir->trans($no_meja, $id_order, $tanggal, $total_bayar);
+    	$trans = $this->bioskop->trans($no_meja, $id_order, $tanggal, $total_bayar);
     	
     	if($trans == $id_order){
-     //     // Panggil function save yang ada di kasir.php untuk menyimpan data ke database
-    		$this->kasir->edit_a($id_order);
-    		$this->kasir->edit_a1($id_order);
+     //     // Panggil function save yang ada di bioskop.php untuk menyimpan data ke database
+    		$this->bioskop->edit_a($id_order);
+    		$this->bioskop->edit_a1($id_order);
 
 
         redirect('owner/pesanan'); // Redirect kembali ke halaman awal / halaman view data
@@ -180,13 +181,13 @@ class owner extends CI_Controller {
 
 public function alldata(){	
 	$id_order = $this->input->post('kode');
-	$data = $this->kasir->detail($id_order)->result();
+	$data = $this->bioskop->detail($id_order)->result();
 	echo json_encode($data);
 }
 
 public function transaksi()
 {
-	$data['tran']=$this->kasir->transaksi();
+	$data['tran']=$this->bioskop->transaksi();
 	$this->load->view('heater/header');
 	$this->load->view('owner/transaksi',$data);
 	$this->load->view('heater/footer');
@@ -226,6 +227,16 @@ public function hapusmas($id)
 	redirect('owner/masakan');
 }
 
+public function hapus_order($id)
+{
+	$where = array(
+		'id_order' => $id
+	);
+	$this->db->where($where);
+	$this->db->delete('orderan');
+	redirect('owner/pesanan');
+}
+
 function hapuspes($nama_mas,$id_d)
 {
 	$this->db->query("DELETE orderan, detail_order FROM orderan , detail_order WHERE orderan.id_order = detail_order.id_order AND detail_order.nama_masakan = '$nama_mas' AND detail_order.id_detail_order = '$id_d'");
@@ -240,7 +251,7 @@ function edituser(){
 	$id_level = $this->input->post('id_level');
 	$id_user = $this->input->post('id_user');
 	
-	$this->kasir->edit_user($username, $password, $nama_user, $id_level, $id_user);
+	$this->bioskop->edit_user($username, $password, $nama_user, $id_level, $id_user);
 	redirect('owner/manage');
 }
 
@@ -252,27 +263,51 @@ function editmas(){
 	$gambar = $upload['file']['file_name'];
 	$kategori = $this->input->post('kategori');
 	$status_masakan = $this->input->post('status_masakan');
-	$this->kasir->edit_mas($nama_masakan, $deskripsi, $harga, $gambar, $kategori, $status_masakan);
+	$this->bioskop->edit_mas($nama_masakan, $deskripsi, $harga, $gambar, $kategori, $status_masakan);
 	redirect('owner/manage');
+}
+
+public function addPesanan(){
+	$no_meja = $this->input->post('no_meja');
+	$tanggal = $this->input->post('tanggal');
+	$keterangan = $this->input->post('keterangan');
+	$kode = array(
+		'no_meja'  => $no_meja,
+		'tanggal'   =>  $tanggal,
+		'keterangan'      =>  $keterangan,
+		'status_order'   =>  "selesai");
+	$oke = $this->db->insert('orderan',$kode);
+	redirect('owner/pesanan');
+}	
+
+function editPesanan(){
+
+	$id_order = $this->input->post('id_order');
+	$no_meja = $this->input->post('no_meja');
+	$tanggal = $this->input->post('tanggal');
+	$keterangan = $this->input->post('keterangan');
+	
+	$this->bioskop->edit_pesanan($id_order, $no_meja, $tanggal, $keterangan);
+	redirect('owner/pesanan');
 }
 
 public function gambar(){
 	$data = array();
 
     if($this->input->post('submit')){ // Jika user menekan tombol Submit (Simpan) pada form
-      // lakukan upload file dengan memanggil function upload yang ada di kasir.php
-    	$upload = $this->kasir->upload();
+      // lakukan upload file dengan memanggil function upload yang ada di bioskop.php
+    	$upload = $this->bioskop->upload();
     	
       if($upload['result'] == "success"){ // Jika proses upload sukses
-         // Panggil function save yang ada di kasir.php untuk menyimpan data ke database
-      	$this->kasir->save($upload);
+         // Panggil function save yang ada di bioskop.php untuk menyimpan data ke database
+      	$this->bioskop->save($upload);
       	
-        redirect('owner/masakan'); // Redirect kembali ke halaman awal / halaman view data
+        redirect('owner/buku'); // Redirect kembali ke halaman awal / halaman view data
       }else{ // Jika proses upload gagal
         $data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
     }
 }
-redirect ('owner/masakan');
+redirect ('owner/buku');
 }
 
 public function egambar(){
@@ -280,8 +315,8 @@ public function egambar(){
 	$data = array();
 
     if($this->input->post('submit')){ // Jika user menekan tombol Submit (Simpan) pada form
-      // lakukan upload file dengan memanggil function upload yang ada di kasir.php
-    	$upload = $this->kasir->eupload();
+      // lakukan upload file dengan memanggil function upload yang ada di bioskop.php
+    	$upload = $this->bioskop->eupload();
     	$id_masakan = $this->input->post('id_masakan');
     	$nama_masakan = $this->input->post('nama_masakan');
     	$gambar1 = $this->input->post('gambar');
@@ -290,15 +325,15 @@ public function egambar(){
     	$kategori = $this->input->post('kategori');
     	$status_masakan = $this->input->post('status_masakan');
     	
-    	$this->kasir->edit($upload, $id_masakan,$gambar1, $nama_masakan, $deskripsi, $harga, $kategori, $status_masakan);
-         // Panggil function save yang ada di kasir.php untuk menyimpan data ke database
+    	$this->bioskop->edit($upload, $id_masakan,$gambar1, $nama_masakan, $deskripsi, $harga, $kategori, $status_masakan);
+         // Panggil function save yang ada di bioskop.php untuk menyimpan data ke database
       if($upload['result'] == "success"){ // Jika proses upload sukses
-        redirect('owner/masakan'); // Redirect kembali ke halaman awal / halaman view data
+        redirect('owner/buku'); // Redirect kembali ke halaman awal / halaman view data
       }else{ // Jika proses upload gagal
         $data['message'] = $upload['error']; // Ambil pesan error uploadnya untuk dikirim ke file form dan ditampilkan
     }
 }
-redirect ('owner/masakan');
+redirect ('owner/buku');
 }
 
 public function laporanpenjualan(){

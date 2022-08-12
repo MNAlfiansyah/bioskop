@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Kasir</title>
+	<title>Bioskop</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="<?= base_url('assets/login/images/icons/favicon.ico')?>">
@@ -24,30 +24,24 @@
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="<?php echo base_url('index.php')?>">
 					<span class="login100-form-title p-b-32">
-						Kasir 
+						Bioskop 
 					</span>
 					<span class="txt1 p-b-11">
 						<?php if(isset($error)) { echo $error; }; ?>
 					</span>
-					<span class="txt1 p-b-11">
-						Username
-					</span>
+					<?php echo form_error('username'); ?>
 					<div class="wrap-input100 validate-input m-b-36" data-validate = "Username is required">
-						<input class="input100" type="text" name="username" >
+						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
 					</div>
-					<?php echo form_error('username'); ?>
-					<span class="txt1 p-b-11">
-						Password
-					</span>
+					<?php echo form_error('password'); ?>
 					<div class="wrap-input100 validate-input m-b-12" data-validate = "Password is required">
 						<span class="btn-show-pass">
 							<i class="fa fa-eye"></i>
 						</span>
-						<input class="input100" type="password" name="password">
+						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
-					<?php echo form_error('password'); ?>
 					<div class="flex w-full p-b-48">
 
 					</div>

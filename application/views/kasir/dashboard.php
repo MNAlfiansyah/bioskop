@@ -36,7 +36,7 @@
 	<div class="clearfix">
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; 2019. MNAC Copyright.</p>
+				<p class="copyright">&copy; 10120918 - Dennie Fuzi Alfiyanies </p>
 			</div>
 		</footer>
 	</div>

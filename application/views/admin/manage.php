@@ -3,10 +3,10 @@
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-                    <li><a href="<?= base_url('index.php/admin')?>" class="'"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+                    <!-- <li><a href="<?= base_url('index.php/admin')?>" class="'"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li> -->
                     <li><a href="<?= base_url('index.php/admin/manage')?>" class="active"><i class="lnr lnr-code"></i> <span>Management User</span></a></li>
-                    <li><a href="<?= base_url('index.php/admin/masakan');?>" class=""><i class="lnr lnr-chart-bars"></i> <span>Masakan</span></a></li>
-                    <li><a href="<?= base_url('index.php/admin/pesanan')?>" class=""><i class="lnr lnr-cog"></i> <span>Pesanan</span></a></li>
+                    <li><a href="<?= base_url('index.php/admin/pesanan')?>" class=""><i class="lnr lnr-camera-video"></i> <span>Auditorium</span></a></li>
+                    <li><a href="<?= base_url('index.php/admin/buku');?>" class=""><i class="lnr lnr-film-play"></i> <span>Film</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -40,7 +40,6 @@
                                 <th style="text-align: center;">Username</th>
                                 <th style="text-align: center;">Password</th>
                                 <th style="text-align: center;">Nama User</th>
-                                <th style="text-align: center;">Level</th>
                                 <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
@@ -59,7 +58,6 @@
                                     <td style="text-align: center;"><?php echo $username;?></td>
                                     <td style="text-align: center;"><?php echo $password;?></td>
                                     <td style="text-align: center;"><?php echo $nama;?></td>
-                                    <td style="text-align: center;"><?php echo $lvl;?></td>
                                     <td style="text-align: center;"><button type="button" data-toggle="modal" data-target="#modal_edit<?php echo $id?>" class="btn btn-info" style="border-radius: 2px;"><i class="fas fa-pencil-alt ai"></i></button>
                                         <a href="<?php echo base_url('index.php/admin/hapususer/'.$id);?>" title="hapus"><button type="button" class="btn btn-danger" style="border-radius: 2px;"><i class="fas fa-trash-alt ai"></i></button></a>
                                     </td>
@@ -110,9 +108,7 @@
                                     <select name="id_level" class="form-control" required="">
                                         <option value="">--Select akses--</option>
                                         <option name="id_level" value="1">Admin</option>
-                                        <option name="id_level" value="2">Waiter</option>
-                                        <option name="id_level" value="3">Kasir</option>
-                                        <option name="id_level" value="5">Pelanggan</option>
+                                        <option name="id_level" value="4">Owner</option>
                                     </select>
                                     <span class="help-block"></span>
                                 </div>
@@ -169,7 +165,8 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="password">Level</label>
                             <div class="col-md-9">
-                                <input type="text" value="<?php echo $lvl;?>" class="form-control" name="id_level" required="">
+                                <input type="text" disabled value="<?php echo  ($lvl == 1) ? 'Admin' : (($lvl == 4) ? 'Owner' : ''); ?>" class="form-control" required="">
+                                <input type="hidden"  name="id_level"  value=<?= $lvl ?>>
                             </div>
                         </div>
 
@@ -188,7 +185,7 @@
 <div class="clearfix">
     <footer>
         <div class="container-fluid">
-            <p class="copyright">&copy; 2019. MNAC Copyright.</p>
+            <p class="copyright">&copy; 10120918 - Dennie Fuzi Alfiyanies </p>
         </div>
     </footer>
 </div>

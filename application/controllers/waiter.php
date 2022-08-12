@@ -9,16 +9,16 @@ class waiter extends CI_Controller {
 		if ($this->session->userdata('id_level') !== '2') {
 			redirect('login');
 		}
-		$this->load->model('kasir');
+		$this->load->model('bioskop');
 	}
 
 	public function index()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['user']=$this->kasir->user()->num_rows();
-			$data['masakan']=$this->kasir->masakan()->num_rows();
-			$data['transaksi']=$this->kasir->waiter()->num_rows();
+			$data['user']=$this->bioskop->user()->num_rows();
+			$data['masakan']=$this->bioskop->masakan()->num_rows();
+			$data['transaksi']=$this->bioskop->waiter()->num_rows();
 
 			$this->load->view('heater/header');
 			$this->load->view('waiter/dashboard',$data);
@@ -40,7 +40,7 @@ class waiter extends CI_Controller {
 
 	public function alldata(){	
 		$id_order = $this->input->post('kode');
-		$data = $this->kasir->detail($id_order)->result();
+		$data = $this->bioskop->detail($id_order)->result();
 		echo json_encode($data);
 	}
 
@@ -53,8 +53,8 @@ class waiter extends CI_Controller {
 		$total_bayar =$this->input->post('total_bayar');
 
 		if (isset($_POST['submit'])) {
-			$this->kasir->waiter1($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar);
-			$this->kasir->waiter2($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar);
+			$this->bioskop->waiter1($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar);
+			$this->bioskop->waiter2($id_transaksi, $tanggal, $id_order, $no_meja, $total_bayar);
 			$this->load->view('heater/header');
 			redirect('waiter/pesanan');
 			$this->load->view('heater/footer');
@@ -66,9 +66,9 @@ class waiter extends CI_Controller {
 
 	public function pesanan()
 	{
-		if($this->kasir->logged_id())	
+		if($this->bioskop->logged_id())	
 		{
-			$data['pes'] = $this->kasir->waiter();
+			$data['pes'] = $this->bioskop->waiter();
 			$this->load->view('heater/header');
 			$this->load->view('waiter/pesanan',$data);
 			$this->load->view('heater/footer');
@@ -83,7 +83,7 @@ class waiter extends CI_Controller {
 	public function view_data()
 	{
 		if (isset($_POST['cari'])) {
-			$data['pesan']	 = $this->kasir->view_data($this->input->post('id_order'));
+			$data['pesan']	 = $this->bioskop->view_data($this->input->post('id_order'));
 			$this->load->view('heater/header');
 			$this->load->view('waiter/data', $data);
 			$this->load->view('heater/footer');

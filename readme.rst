@@ -1,3 +1,3 @@
 My Codeigniter 3 Project
 
-Aplikasi Kasir lengkap dengan cetak struk
+Aplikasi Bioskop lengkap dengan cetak struk

@@ -15,9 +15,9 @@
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
 	<link rel="stylesheet" href="<?= base_url('assets/dashboard/css/demo.css')?>">
 	<!-- ICONS -->
-	<link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('assets/dashboard/img/apple-icon.png')?>">
-	<link rel="icon" type="image/png" sizes="96x96" href="<?= base_url('assets/dashboard/img/favicon.png')?>">
-	<title>Kasir</title>
+	<!-- <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('assets/dashboard/img/apple-icon.png')?>">
+	<link rel="icon" type="image/png" sizes="96x96" href="<?= base_url('assets/dashboard/img/favicon.png')?>"> -->
+	<title>Bioskop</title>
 </head>
 
 <body>
@@ -26,14 +26,14 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="" class="simple-text"><i class="fas fa-hands-helping fa-lg"></i> KASIR
+				<a href="" class="simple-text"><i class="fas fa-film fa-lg"></i> BIOSKOP
 				</a>
 			</div>
 			<div class="container-fluid">
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="#"><span><i class="fas fa-user-astronaut fa-lg"></i> <?php echo $this->session->userdata("user_nama");?></span></a>
+							<a href="#"><span><i class="fas fa-user fa-lg"></i> <?php echo $this->session->userdata("user_nama");?></span></a>
 						</li>
 						<li>
 							<a href="<?php echo base_url('index.php/login/logout');?>" >Logout</a>
