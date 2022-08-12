@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class owner extends CI_Controller {
+class Owner extends CI_Controller {
 
 	public function __construct()
 	{
@@ -334,58 +334,6 @@ public function egambar(){
     }
 }
 redirect ('owner/buku');
-}
-
-public function laporanpenjualan(){
-	$id_transaksi =$this->input->post('id_transaksi');
-	$tanggal =$this->input->post('tanggal');
-	$id_order =$this->input->post('id_order');
-	$no_meja =$this->input->post('no_meja');
-	$total_bayar =$this->input->post('total_bayar');
-	$tanggal1 = $this->input->post('tanggal1');
-	$cet = $this->db->query("SELECT * FROM transaksi WHERE tanggal BETWEEN '$tanggal' AND '$tanggal1' ");
-
-	$pdf = new FPDF("P","mm","A4");
-	$pdf->AddPage();
-	$pdf->SetFont('Arial','B',13);
-	$pdf->Cell(45);
-	$pdf->Cell(100,0,'Laporan Data Penjualan '.$tanggal.' - '.$tanggal1.' '  ,0,0,'C');
-	$pdf->Ln(5);
-	$pdf->SetFont('Arial','',10);
-	$pdf->SetFillColor(100,0,0);
-	$pdf->SetTextColor(255);
-	$pdf->SetDrawColor(0,0,0);
-	$header = array('Id_trans', 'Id Order', 'No Meja', 'Total Harga');
-        // Lebar Header Sesuaikan Jumlahnya dengan Jumlah Field Tabel Database
-	$w = array(47.5, 47.5, 47.5, 47.5);
-	for($i=0;$i<count($header);$i++)
-		$pdf->Cell($w[$i],7,$header[$i],1,0,'C',true);
-	$pdf->Ln();
-	$fill = false; // Data
-	$pdf->SetFillColor(224,235,255);
-	$pdf->SetTextColor(0);
-	$pdf->SetFont('');
-
-	foreach ($cet->result_array() as $i):
-		$id_transaksi = $i['id_transaksi'];
-		$tanggal = $tanggal;
-		$id_order = $i['id_order'];
-		$no_meja = $i['no_meja'];
-		$total_bayar = $i['total_bayar'];
-		$tanggal12 = $tanggal1;
-
-		$pdf->Cell($w[0],6,$id_transaksi,'LR',0,'L',$fill); 
-		$pdf->Cell($w[1],6,$id_order,'LR',0,'L',$fill);
-		$pdf->Cell($w[2],6,$no_meja,'LR',0,'L',$fill);
-		$pdf->Cell($w[3],6,$total_bayar,'LR',0,'L',$fill);
-		
-		$pdf->Ln();
-		$fill = !$fill;
-	endforeach;
-	$pdf->Cell(array_sum($w),0,'','T');
-
-	$pdf->Output();
-
 }
 
 public function cetakk(){
